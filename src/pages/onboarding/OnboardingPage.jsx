@@ -19,7 +19,7 @@ function renderSlide(slide, handlers) {
       return (
         <DiagnosticCTA
           data={slide}
-          onStart={handlers.completeOnboarding}
+          onStart={() => handlers.completeOnboarding()}
           onSkip={handlers.skipOnboarding}
         />
       )
