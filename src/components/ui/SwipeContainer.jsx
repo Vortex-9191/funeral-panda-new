@@ -1,5 +1,8 @@
+import { useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { slideVariants, swipeConfidenceThreshold, swipePower } from '../../utils/animations'
+import { slideVariants } from '../../utils/animations'
+
+const SWIPE_THRESHOLD = 50
 
 export default function SwipeContainer({
   currentIndex,
@@ -8,6 +11,22 @@ export default function SwipeContainer({
   onPrev,
   children,
 }) {
+  const touchStart = useRef(null)
+
+  const handleTouchStart = (e) => {
+    touchStart.current = e.touches[0].clientX
+  }
+
+  const handleTouchEnd = (e) => {
+    if (touchStart.current === null) return
+    const diff = touchStart.current - e.changedTouches[0].clientX
+    touchStart.current = null
+    if (Math.abs(diff) > SWIPE_THRESHOLD) {
+      if (diff > 0) onNext()
+      else onPrev()
+    }
+  }
+
   return (
     <AnimatePresence initial={false} custom={direction} mode="wait">
       <motion.div
@@ -17,17 +36,8 @@ export default function SwipeContainer({
         initial="enter"
         animate="center"
         exit="exit"
-        drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.7}
-        onDragEnd={(_, { offset, velocity }) => {
-          const power = swipePower(offset.x, velocity.x)
-          if (power < -swipeConfidenceThreshold) {
-            onNext()
-          } else if (power > swipeConfidenceThreshold) {
-            onPrev()
-          }
-        }}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
         className="flex h-full w-full flex-1 flex-col"
       >
         {children}
