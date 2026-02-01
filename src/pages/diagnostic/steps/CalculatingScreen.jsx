@@ -24,53 +24,52 @@ export default function CalculatingScreen({ onComplete }) {
 
   return (
     <motion.div
-      className="flex flex-1 flex-col items-center justify-center px-6"
+      className="flex min-h-dvh flex-col items-center px-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      {/* Outer glow */}
+      {/* Background glow */}
       <motion.div
-        className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-coral/20 via-violet/10 to-golden/20 blur-[60px]"
+        className="pointer-events-none absolute left-1/2 top-[45%] h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-coral/20 via-violet/10 to-golden/20 blur-[60px]"
         animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
       />
 
-      {/* Spinner container */}
-      <div className="relative mb-10 flex h-28 w-28 items-center justify-center">
-        {/* Track */}
+      {/* Upper space */}
+      <div className="flex-[4]" />
+
+      {/* Spinner */}
+      <div className="relative mb-8 flex h-24 w-24 items-center justify-center">
         <div className="absolute inset-0 rounded-full border-[3px] border-cream/8" />
-        {/* Spinning arc */}
         <motion.div
           className="absolute inset-0 rounded-full border-[3px] border-transparent"
           style={{ borderTopColor: '#FF6B6B', borderRightColor: '#FECA57' }}
           animate={{ rotate: 360 }}
           transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
         />
-        {/* Inner icon */}
         <motion.span
-          className="relative text-[2.5rem]"
-          animate={{ scale: [1, 1.15, 1] }}
+          className="relative text-[2rem]"
+          animate={{ scale: [1, 1.12, 1] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
         >
           🔮
         </motion.span>
       </div>
 
-      {/* Cycling message */}
+      {/* Message */}
       <motion.p
         key={msgIndex}
-        className="relative text-[0.9375rem] font-medium text-cream/70"
-        initial={{ opacity: 0, y: 8 }}
+        className="relative mb-6 text-[0.875rem] font-medium text-cream/60"
+        initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -8 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.25 }}
       >
         {messages[msgIndex]}
       </motion.p>
 
       {/* Progress bar */}
-      <div className="relative mt-8 h-1 w-48 overflow-hidden rounded-full bg-cream/10">
+      <div className="relative h-[3px] w-40 overflow-hidden rounded-full bg-cream/8">
         <motion.div
           className="h-full rounded-full bg-gradient-to-r from-coral to-golden"
           initial={{ width: '0%' }}
@@ -78,6 +77,9 @@ export default function CalculatingScreen({ onComplete }) {
           transition={{ duration: 2.6, ease: 'easeInOut' }}
         />
       </div>
+
+      {/* Lower space (slightly more to push content up) */}
+      <div className="flex-[5]" />
     </motion.div>
   )
 }

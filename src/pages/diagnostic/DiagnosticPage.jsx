@@ -22,11 +22,17 @@ export default function DiagnosticPage() {
     restart,
   } = useDiagnosticFlow()
 
+  const isScrollable = phase === 'result'
+
   return (
     <FullScreenLayout>
       <ParticleBackground />
 
-      <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+      <div
+        className={`relative flex flex-1 flex-col overflow-x-hidden ${
+          isScrollable ? 'overflow-y-auto' : 'overflow-y-hidden'
+        }`}
+      >
         <AnimatePresence mode="wait" custom={direction}>
           {phase === 'intro' && (
             <DiagnosticIntro key="intro" onStart={startDiagnostic} />
