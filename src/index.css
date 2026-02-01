@@ -1,0 +1,64 @@
+@import "tailwindcss";
+@import "@fontsource-variable/noto-sans-jp";
+
+@theme {
+  /* Colors - 祭り×サンセット */
+  --color-coral: #FF6B6B;
+  --color-golden: #FECA57;
+  --color-violet: #A855F7;
+  --color-emerald: #34D399;
+  --color-indigo-deep: #1A0A2E;
+  --color-cream: #FFF7ED;
+  --color-plum: #2D1B4E;
+  --color-lavender: #C4B5FD;
+
+  /* Typography */
+  --font-sans: "Noto Sans JP Variable", "Noto Sans JP", system-ui, sans-serif;
+
+  --font-size-display: 2.5rem;
+  --font-size-heading: 1.875rem;
+  --font-size-body: 1rem;
+  --font-size-small: 0.875rem;
+
+  --line-height-display: 1.2;
+  --line-height-heading: 1.3;
+  --line-height-body: 1.6;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-indigo-deep);
+  color: var(--color-cream);
+}
+
+body {
+  min-height: 100dvh;
+  overscroll-behavior: none;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
