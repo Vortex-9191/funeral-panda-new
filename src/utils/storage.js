@@ -15,3 +15,21 @@ export function markOnboardingComplete() {
     // localStorage unavailable
   }
 }
+
+const DIAGNOSTIC_KEY = 'funeral-panda:diagnostic-result'
+
+export function saveDiagnosticResult(resultTypeId) {
+  try {
+    localStorage.setItem(DIAGNOSTIC_KEY, resultTypeId)
+  } catch {
+    // localStorage unavailable
+  }
+}
+
+export function getDiagnosticResult() {
+  try {
+    return localStorage.getItem(DIAGNOSTIC_KEY)
+  } catch {
+    return null
+  }
+}
